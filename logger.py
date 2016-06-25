@@ -35,7 +35,6 @@ class Singleton_mc(type):
         
         cls_new = cls.__new__
         
-        # works like lambda
         def __new(cls,*args,**kwds):
             if cls.instance == None:
                 cls.instance = cls_new(cls,*args,**kwds)
@@ -44,8 +43,6 @@ class Singleton_mc(type):
         cls.instance = None
         cls.__new__ = staticmethod(__new)
 
-
-# This formatter provides a way to hook in formatTime.
 class Formatter(logging.Formatter):
     DATETIME_HOOK = None
 
