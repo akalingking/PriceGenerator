@@ -2,7 +2,7 @@ NAME:
 	Pricegenerator - Price stream simulator
 
 DESRIPTION:
-	Generates OHLC data based on Gemetric Brownian Motion
+	Generates OHLC data based on Geometric Brownian Motion
 
 REQUIREMENTS:
 	'scipy>=0.14.0',
