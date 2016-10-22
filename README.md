@@ -1,7 +1,9 @@
-#Pricegenerator - Price stream simulator
+#Pricegenerator - Price Stream Simulator
+
 
 ##DESRIPTION:
 	Generates synthetic OHLC data based on Geometric Brownian Motion
+
 
 ##REQUIREMENTS:
 [1] scipy>=0.14.0	"https://sourceforge.net/projects/scipy"
