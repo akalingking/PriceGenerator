@@ -1,4 +1,4 @@
 
 REQUIREMENTS:
-	ws4py
-	gevent
+	'ws4py'
+	'gevent'

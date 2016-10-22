@@ -37,43 +37,56 @@ class DaemonRunner(runner.DaemonRunner):
 
     def parse_args(self, argv=None):
         try:
-            opts, args = getopt.getopt(sys.argv[1:],
-                    'skrl:p:fvh',
-                   ['start', 'kill', 'log_file=',
-                    'pid_file=', 'foreground'])
-        except getopt.GetoptError:
+            opts, _args = getopt.getopt(sys.argv[1:], 'skrl:p:fvh', ['start', 'kill', 'logfile=', 'pidfile=', 'foreground'])
+        except getopt.GetoptError as e:
             print sys.exc_info()
-            print 'getopt error...'
+            print ("Exception: %s" % str(e))
             sys.exit(2)
 
         self.action = ''
         for opt, arg in opts:
             #print 'opt / arg :', opt, arg
-            if opt in ('-s'):
+            if opt in ('-s', '--start'):
                 self.action = 'start'
-            elif opt in ('-k'):
+
+            elif opt in ('-k', '--kill'):
                 self.action = 'stop'
-            elif opt in ('-r'):
+
+            elif opt in ('-r', '--restart'):
                 self.action = 'restart'
-            elif opt in ('-l', '--log_file'):
+
+            elif opt in ('-l', '--logfile'):
                 self.app_save.application.logfile_ = arg
+
             elif opt in ('-p', '--pidfile'):
                 self.app_save.pidfile_path = arg
                 #print 'arg is :', arg
+                
+            elif opt in ('-v', '--verbose'):
+                self.verbose = True
+
             elif opt in ('-f', '--foreground'):
                 self.detach_process = False
                 self.app_save.stdout_path = '/dev/tty'
                 self.app_save.stderr_path = '/dev/tty'
                 self.app_save.foreground = True
+
             elif opt in ('-v'):
                 self.verbose = True
+
             elif opt in ('-h', '--help'):
-                print 'show usage...'
+                DaemonRunner.show_usage()
                 sys.exit(2)
+
             else:
-                print 'show usage'
+                DaemonRunner.show_usage()
                 sys.exit(2)
 
         if not self.action:
-            print sys.argv[0] + ' (-s|-k|-r) [options]'
+            DaemonRunner.show_usage()
             sys.exit(1)
+            
+    @staticmethod
+    def show_usage():
+        print 'usage: ' + sys.argv[0] + ' -s|--start -k|--kill -r|--restart) [-v|--verbose,-f|--logfile=,-p|--pidfile=,-f|--foreground]'
+            

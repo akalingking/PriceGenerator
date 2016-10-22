@@ -44,7 +44,7 @@ def main():
         app_instance.start()
         app_instance.wait(10)
     except Exception as e:
-        app_instance.log().info("Application.Main exception %s", str(e))
+        app_instance.log().error("Application.Main exception %s", str(e))
     finally:
         app_instance.stop()
           
